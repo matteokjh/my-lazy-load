@@ -15,7 +15,7 @@ async function getImages() {
 }
 
 const app = async (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Origin", "https://demo.sulpures.com");
     const list = await getImages();
     const data = JSON.stringify(list);
     res.write(data);
