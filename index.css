@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.box {
+    width: 80vw;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: aliceblue;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    justify-content: center;
+}
+.pic {
+    width: 100%;
+    min-height: 300px;
+    background-color: antiquewhite;
+}

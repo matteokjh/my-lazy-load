@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Images Lazy Load</title>
+        <link rel="stylesheet" href="./index.css" />
+    </head>
+    <body>
+        <div id="box" class="box"></div>
+
+        <script src="./ajax.js"></script>
+        <script src="./throttle.js"></script>
+        <script>
+            const box = document.getElementById("box");
+            this.imgs = [];
+            // 每个组件
+            function generateItem(url, idx) {
+                const item = document.createElement("img");
+                item.setAttribute("data-src", url);
+                item.className = "pic";
+                item.onclick = getTop;
+                return item;
+            }
+            // 图片注入
+            function renderPic(arr) {
+                arr.forEach((e, i) => {
+                    const item = generateItem(e, i);
+                    box.appendChild(item);
+                });
+                this.imgs = document.querySelectorAll("img");
+            }
+            // 获取数据
+            async function getData() {
+                try {
+                    this.list = await ajax.get("http://localhost:8989");
+                    console.log(this.list);
+                    renderPic(this.list);
+                } catch (err) {
+                    console.error(err);
+                }
+            }
+            // 获取高度
+            function getTop(e) {
+                let T = e.offsetTop;
+                while ((e = e.offsetParent)) T += e.offsetTop;
+                return T;
+            }
+            // 懒加载
+            function lazyLoad() {
+                let H = document.documentElement.clientHeight;
+                let S = document.documentElement.scrollTop;
+                this.imgs.forEach((e) => {
+                    if (!e.src && H + S > getTop(e))
+                        e.src = `static/${e.getAttribute("data-src")}`;
+                });
+            }
+            // 主函数
+            async function main() {
+                await getData();
+                lazyLoad();
+                window.addEventListener("scroll", throttle(lazyLoad, 500));
+            }
+            main();
+        </script>
+    </body>
+</html>
