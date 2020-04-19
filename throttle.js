@@ -10,8 +10,6 @@ function throttle(Fn, delay) {
             Fn.apply(context, args);
         };
 
-        if (!timeout) {
-            timeout = setTimeout(later, delay);
-        }
+        if (!timeout) timeout = setTimeout(later, delay)
     };
 }
