@@ -33,7 +33,7 @@
             // 获取数据
             async function getData() {
                 try {
-                    this.list = await ajax.get("http://localhost:8989");
+                    this.list = await ajax.get("http://149.28.78.62:8989");
                     console.log(this.list);
                     renderPic(this.list);
                 } catch (err) {
